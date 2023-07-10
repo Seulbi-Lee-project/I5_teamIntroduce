@@ -1,5 +1,7 @@
+import 'package:assignment11/team_blog.dart';
 import 'package:assignment11/team_intro.dart';
-import 'package:assignment11/team_manage.dart';
+import 'package:assignment11/team_mbti.dart';
+import 'package:assignment11/team_strength.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'member_detail.dart';
@@ -70,12 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: 250,
                               height: 50,
                               child: ElevatedButton(
-                                child: Text("팀 관리"),
+                                child: Text("팀 블로그"),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => TeamManage()
+                                      builder: (_) => TeamBlog()
                                       ,
                                     ),
                                   );
@@ -101,6 +103,71 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: 250,
                               height: 50,
                               child: ElevatedButton(
+                                child: Text("팀 MBTI"),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => TeamMbti()
+                                      ,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 30,),
+                  Center(
+                    child: Container(
+                      width: 400,
+                      //margin: const EdgeInsets.all(30.0),
+                      //padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: SizedBox(
+                              width: 250,
+                              height: 50,
+                              child: ElevatedButton(
+                                child: Text("팀 장점"),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => TeamStrength()
+                                      ,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 30,),
+
+                  MemberView(),
+                  SizedBox(height: 30,),
+                  Center(
+                    child: Container(
+                      width: 400,
+                      //margin: const EdgeInsets.all(30.0),
+                      //padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: SizedBox(
+                              width: 250,
+                              height: 50,
+                              child: ElevatedButton(
                                 child: Text("멤버등록"),
                                 onPressed: () {
                                   Navigator.push(
@@ -108,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     MaterialPageRoute(
                                       builder: (_) => ConcretePage(
                                         index:
-                                            memberService.memberList.length - 1,
+                                        memberService.memberList.length - 1,
                                         mode: true,
                                       ),
                                     ),
@@ -121,8 +188,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30,),
-                  MemberView(),
 
                 ],
               ),
