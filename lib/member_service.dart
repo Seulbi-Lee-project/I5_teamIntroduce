@@ -39,7 +39,7 @@ class MemberService extends ChangeNotifier {
       mbti: 'ISTP',
       merit: '끈기 있습니다',
       style: '내가 할 일은 책임감 있게 합니다',
-      blog: 'https://velog.io/@bkt2790',
+      blog: 'https://velog.io/@kt2790',
     ), // 더미(dummy) 데이터
     Member(
       name: '이슬비',
