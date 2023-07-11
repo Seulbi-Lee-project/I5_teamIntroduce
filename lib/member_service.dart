@@ -35,39 +35,39 @@ class Member {
 class MemberService extends ChangeNotifier {
   List<Member> memberList = [
     Member(
-      name: '멤버1',
-      mbti: '',
-      merit: '',
-      style: '',
+      name: '배근태',
+      mbti: 'ISTP',
+      merit: '끈기 있습니다',
+      style: '내가 할 일은 책임감 있게 합니다',
+      blog: 'https://velog.io/@bkt2790',
+    ), // 더미(dummy) 데이터
+    Member(
+      name: '이슬비',
+      mbti: 'ISTJ',
+      merit: '실수가 적다',
+      style: '숨은 강자',
+      blog: 'https://velog.io/@ifssfws',
+    ), // 더미(dummy) 데이터
+    Member(
+      name: '이승훈',
+      mbti: 'INFJ',
+      merit: '포기하지 않고 열심히 합니다',
+      style: '민폐 안끼치고 할 일 하겠습니다',
+      blog: 'https://hara9052.tistory.com/',
+    ), // 더미(dummy) 데이터
+    Member(
+      name: '소준선',
+      mbti: 'ISTP',
+      merit: '평화주의자',
+      style: '열심히 잘 따라갑니다',
+      blog: 'https://junseon98.tistory.com/',
+    ), // 더미(dummy) 데이터
+    Member(
+      name: '이동희',
+      mbti: 'ISTJ',
+      merit: '계획적이다',
+      style: '열심히 따라함',
       blog: 'https://velog.io/@ldh7054',
-    ), // 더미(dummy) 데이터
-    Member(
-      name: '멤버2',
-      mbti: '',
-      merit: '',
-      style: '',
-      blog: '',
-    ), // 더미(dummy) 데이터
-    Member(
-      name: '멤버3',
-      mbti: '',
-      merit: '',
-      style: '',
-      blog: '',
-    ), // 더미(dummy) 데이터
-    Member(
-      name: '멤버4',
-      mbti: '',
-      merit: '',
-      style: '',
-      blog: '',
-    ), // 더미(dummy) 데이터
-    Member(
-      name: '멤버5',
-      mbti: '',
-      merit: '',
-      style: '',
-      blog: '',
     ), // 더미(dummy) 데이터
   ];
 
