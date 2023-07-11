@@ -228,7 +228,12 @@ class _ConcretePageState extends State<ConcretePage> {
                 child: widget.mode
                     ? IconButton(
                         onPressed: () {
-                          if (widget._name.isNotEmpty) {
+
+                          if (widget._name.isNotEmpty
+                              && widget._mbti.isNotEmpty
+                              && widget._merit.isNotEmpty
+                              && widget._style.isNotEmpty
+                              && widget._blog.isNotEmpty) {
                             memberService.createMember(
                                 name: widget._name,
                                 mbti: widget._mbti,
@@ -236,21 +241,30 @@ class _ConcretePageState extends State<ConcretePage> {
                                 style: widget._style,
                                 blog: widget._blog,);
                           }
+                          else {
+                            showWarnDialog(context);
+                          }
                           Navigator.pop(context);
                         },
                         icon: Icon(Icons.save))
                     : IconButton(
                         onPressed: () {
-                          memberService.updateMember(
+                          if (widget._name.isNotEmpty
+                              && widget._mbti.isNotEmpty
+                              && widget._merit.isNotEmpty
+                              && widget._style.isNotEmpty
+                              && widget._blog.isNotEmpty) {
+                            memberService.updateMember(
                               index: widget.index,
                               name: widget._name,
                               mbti: widget._mbti,
                               merit: widget._merit,
                               style: widget._style,
                               blog: widget._blog,);
-                          Navigator.pop(context);
-                          if (widget._name.isEmpty) {
-                            memberService.deleteMember(index: widget.index);
+                              Navigator.pop(context);
+                          }
+                          else {
+                            showWarnDialog(context);
                           }
                         },
                         icon: Icon(Icons.save),
@@ -290,6 +304,27 @@ class _ConcretePageState extends State<ConcretePage> {
                 style: TextStyle(color: Colors.pink),
               ),
             ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showWarnDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("빈칸을 채워주세요."),
+          actions: [
+            // 취소 버튼
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("확인"),
+            ),
+            // 확인 버튼
           ],
         );
       },

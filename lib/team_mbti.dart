@@ -18,43 +18,56 @@ class TeamMbti extends StatelessWidget {
       "image/ISTJ.png"
     ];
     return Scaffold(
-        appBar: AppBar(
-          title: Text("5조 멤버MBTI"),
-        ),
-        body: ListView.builder(
-          itemCount: titleList.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: Row(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(ImageList[index]),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(children: [
-                      Text(
-                        titleList[index],
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+      appBar: AppBar(
+        title: Text("5조 멤버MBTI"),
+      ),
+      body: ListView.builder(
+        itemCount: titleList.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: Row(
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  child: Image.asset(ImageList[index]),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(children: [
+                    Text(
+                      titleList[index],
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                  )
-                ],
-              ),
-            );
-          },
-        ));
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ]),
+                )
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
+}
+
+class Item {
+  Item({
+    required this.expandedValue,
+    required this.headerValue,
+    this.isExpanded = false,
+  });
+
+  String expandedValue;
+  String headerValue;
+  bool isExpanded;
 }
