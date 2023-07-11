@@ -19,7 +19,7 @@ class _TeamBlogState extends State<TeamBlog> {
   Widget build(BuildContext context) {
     //
     return Consumer<MemberService>(builder: (context, memberService, child) {
-      List<Member> memberList = MemberService().memberList; // memberList 불러오기
+      List<Member> memberList = memberService.memberList; // memberList 불러오기
 
       return Scaffold(
         body: Column(
@@ -33,7 +33,6 @@ class _TeamBlogState extends State<TeamBlog> {
                   return ElevatedButton(
                     onPressed: () async {
                       final url = Uri.parse(member.blog);
-                      setState(() {});
                       if (await canLaunchUrl(url)) {
                         launchUrl(url);
                       } else {
