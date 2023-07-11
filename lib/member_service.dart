@@ -39,7 +39,7 @@ class MemberService extends ChangeNotifier {
       mbti: '',
       merit: '',
       style: '',
-      blog: '',
+      blog: 'https://velog.io/@ldh7054',
     ), // 더미(dummy) 데이터
     Member(
       name: '멤버2',
@@ -71,26 +71,33 @@ class MemberService extends ChangeNotifier {
     ), // 더미(dummy) 데이터
   ];
 
-  createMember(
-      {required String name,
-      required String mbti,
-      required String style,
-      required String merit,
-      required String blog,}) {
+  createMember({
+    required String name,
+    required String mbti,
+    required String style,
+    required String merit,
+    required String blog,
+  }) {
     Member member = Member(
-        name: name, mbti: mbti, style: style, merit: merit, blog: blog,);
+      name: name,
+      mbti: mbti,
+      style: style,
+      merit: merit,
+      blog: blog,
+    );
     memberList.insert(
         0, member); // Consumer<MemberService>의 builder 부분을 호출해서 화면 새로고침
     notifyListeners();
   }
 
-  updateMember(
-      {required int index,
-      required String name,
-      required String mbti,
-      required String style,
-      required String merit,
-      required String blog,}) {
+  updateMember({
+    required int index,
+    required String name,
+    required String mbti,
+    required String style,
+    required String merit,
+    required String blog,
+  }) {
     Member member = memberList[index];
     member.name = name;
     member.mbti = mbti;
@@ -104,5 +111,4 @@ class MemberService extends ChangeNotifier {
     memberList.removeAt(index);
     notifyListeners();
   }
-
 }
