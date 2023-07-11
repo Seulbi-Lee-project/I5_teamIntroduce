@@ -9,8 +9,6 @@ class TeamIntro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text("Team Intro"))
-    );
+    return Scaffold(body: Center(child: Text("Team Intro")));
   }
 }
