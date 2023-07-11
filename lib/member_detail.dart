@@ -240,11 +240,11 @@ class _ConcretePageState extends State<ConcretePage> {
                                 merit: widget._merit,
                                 style: widget._style,
                                 blog: widget._blog,);
+                            Navigator.pop(context);
                           }
                           else {
                             showWarnDialog(context);
                           }
-                          Navigator.pop(context);
                         },
                         icon: Icon(Icons.save))
                     : IconButton(
