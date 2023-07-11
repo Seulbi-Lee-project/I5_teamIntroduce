@@ -77,8 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => TeamBlog()
-                                      ,
+                                      builder: (_) => TeamBlog(),
                                     ),
                                   );
                                 },
@@ -89,7 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Center(
                     child: Container(
                       width: 400,
@@ -108,8 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => TeamMbti()
-                                      ,
+                                      builder: (_) => TeamMbti(),
                                     ),
                                   );
                                 },
@@ -120,7 +120,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Center(
                     child: Container(
                       width: 400,
@@ -139,8 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => TeamStrength()
-                                      ,
+                                      builder: (_) => TeamStrength(),
                                     ),
                                   );
                                 },
@@ -151,10 +152,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30,),
-
+                  SizedBox(
+                    height: 30,
+                  ),
                   MemberView(),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Center(
                     child: Container(
                       width: 400,
@@ -175,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     MaterialPageRoute(
                                       builder: (_) => ConcretePage(
                                         index:
-                                        memberService.memberList.length - 1,
+                                            memberService.memberList.length - 1,
                                         mode: true,
                                       ),
                                     ),
@@ -188,7 +192,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
