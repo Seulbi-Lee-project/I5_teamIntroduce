@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'member_detail.dart';
-import 'member_service.dart';
-import 'member_view.dart';
 import 'member_service.dart';
 
 class TeamStrength extends StatelessWidget {
@@ -17,17 +13,31 @@ class TeamStrength extends StatelessWidget {
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Container(
-          child: ListView.builder(
-              itemCount: memberList.length,
-              itemBuilder: (context, index) {
-                Member member = memberList[index];
-                return ListTile(
-                  title: Text(member.name),
-                  subtitle: Text(
-                      member.merit.isEmpty ? "장점을 서술하지 않았습니다." : member.merit),
-                );
-              }),
+        child: Column(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.width * 0.5,
+              child: Image.network(
+                  "https://t1.daumcdn.net/cfile/tistory/99ABCF3D5C62B55503"),
+            ),
+            SizedBox(
+              width: 30,
+            ),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: memberList.length,
+                  itemBuilder: (context, index) {
+                    Member member = memberList[index];
+                    return ListTile(
+                      title: Text(member.name),
+                      subtitle: Text(member.merit.isEmpty
+                          ? "장점을 서술하지 않았습니다."
+                          : member.merit),
+                    );
+                  }),
+            ),
+          ],
         ),
       )),
     );
