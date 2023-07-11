@@ -1,2 +1,2 @@
-# android_team2
-Bucketlist Project
+# android_team5
+Team Introduction Project
