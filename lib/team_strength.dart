@@ -20,7 +20,6 @@ class _TeamStrengthState extends State<TeamStrength> {
         builder: (context, teamStrengthService, index) {
       List<StrengthComment> strengthCommentList =
           teamStrengthService.strengthCommentList;
-      bool passwordBool = false;
       return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
@@ -53,6 +52,7 @@ class _TeamStrengthState extends State<TeamStrength> {
                           return ListTile(
                             leading: IconButton(
                                 onPressed: () {
+                                  bool passwordBool = false;
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
@@ -128,7 +128,25 @@ class _TeamStrengthState extends State<TeamStrength> {
                                                         );
                                                       },
                                                     )
-                                                  : Navigator.of(context).pop();
+                                                  : showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              "비밀번호가 틀렸습니다."),
+                                                          actions: <Widget>[
+                                                            FloatingActionButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              child: Text("확인"),
+                                                            )
+                                                          ],
+                                                        );
+                                                      });
                                             },
                                             child: Text("0k"),
                                           ),
