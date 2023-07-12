@@ -9,65 +9,137 @@ class TeamMbti extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var titleList = ["배근태", "이슬비", "이승훈", "소준선", "이동희"];
-    var ImageList = [
-      "image/ISTP.png",
-      "image/ISTJ.png",
-      "image/INFJ.png",
-      "image/ISTP.png",
-      "image/ISTJ.png"
-    ];
     return Scaffold(
       appBar: AppBar(
         title: Text("5조 멤버MBTI"),
       ),
-      body: ListView.builder(
-        itemCount: titleList.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: Row(
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  child: Image.asset(ImageList[index]),
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(children: [
-                    Text(
-                      titleList[index],
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ]),
-                )
-              ],
-            ),
-          );
-        },
-      ),
+      body: const MbtiMain(),
     );
   }
 }
 
-class Item {
-  Item({
-    required this.expandedValue,
-    required this.headerValue,
-    this.isExpanded = false,
-  });
+class MbtiMain extends StatefulWidget {
+  const MbtiMain({super.key});
 
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
+  @override
+  State<MbtiMain> createState() => _MbtiMainState();
+}
+
+class _MbtiMainState extends State<MbtiMain> {
+  bool _customTileExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Map<String, dynamic> mbtiList = {
+      "ENTJ": "비전을 갖고 타인을 활력적으로 인도하는 사람",
+      "ENTP": "풍부한 상상력으로 새로운 것에 도전하는 사람",
+      "ISFP": "따뜻한 감성을 가진 겸손한 사람",
+      "ISFJ": "성실하고 온화하며 협조를 잘하는 사람",
+      "ENFJ": "타인의 성장을 도모하고 협동하는 사람",
+      "ENFP": "열정적으로 새로운 관계를 만드는 사람",
+      "ISTP": "논리적으로 뛰어난 상황 적응력을 가진 사람",
+      "ISTJ": "한 번 시작한 일은 끝까지 해내는 사람",
+      "ESFJ": "친절, 현실감을 바탕으로 타인에게 봉사하는 사람",
+      "ESFP": "분위기를 고조시키는 우호적인 사람",
+      "INTP": "비평적인 관점을 가진 뛰어는 전략을 가진 사람",
+      "INTJ": "전체를 조합하여 비전을 제시하는 사람",
+      "ESTJ": "사무적, 살용적, 현실적인 사람",
+      "ESTP": "친구, 운동, 음식 등 다양함을 선호하는 사람",
+      "INFJ": "사람에 관한 뛰어난 통찰력을 가진 사람",
+      "INFP": "이상적인 세상을 만들어가는 사람",
+    };
+    Map<String, dynamic> mbtiImgList = {
+      "ENTJ": "image/ENTJ.png",
+      "ENTP": "image/ENTP.png",
+      "ISFP": "image/ISFP.png",
+      "ISFJ": "image/ISFJ.png",
+      "ENFJ": "image/ENFJ.png",
+      "ENFP": "image/ENFP.png",
+      "ISTP": "image/ISTP.png",
+      "ISTJ": "image/ISTJ.png",
+      "ESFJ": "image/ESFJ.png",
+      "ESFP": "image/ESFP.png",
+      "INTP": "image/INTP.png",
+      "INTJ": "image/INTJ.png",
+      "ESTJ": "image/ESTJ.png",
+      "ESTP": "image/ESTP.png",
+      "INFJ": "image/INFJ.png",
+      "INFP": "image/INFP.png",
+    };
+
+    return Consumer<MemberService>(builder: (context, memberService, child) {
+      List<Member> memberList = memberService.memberList;
+
+      return ListView.builder(
+        itemCount: memberList.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.only(top: 5, bottom: 5),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
+              ),
+            ),
+            child: Card(
+              child: ExpansionTile(
+                shape: Border.all(color: Colors.transparent),
+                trailing: Icon(
+                  _customTileExpanded
+                      ? Icons.arrow_drop_up_rounded
+                      : Icons.arrow_drop_down,
+                ),
+                children: <Widget>[
+                  ListTile(
+                    title: Center(child: Text("mbti 특징")),
+                    titleTextStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child: Text("<${mbtiList[memberList[index].mbti]}>"),
+                  ),
+                ],
+                onExpansionChanged: (bool expanded) {
+                  setState(() {
+                    _customTileExpanded = expanded;
+                  });
+                },
+                title: Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      child: Image.asset(mbtiImgList[memberList[index].mbti]),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(children: <Widget>[
+                        Text(
+                          memberList[index].name,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    });
+  }
 }

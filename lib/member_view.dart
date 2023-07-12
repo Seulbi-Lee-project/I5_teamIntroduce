@@ -33,13 +33,6 @@ class MemberView extends StatelessWidget {
               return Column(
                 children: [
                   ListTile(
-                    trailing: SizedBox(
-              height : 30,
-                width : 100,
-                child: ElevatedButton(
-                    child: Text("MBTI", maxLines: 1,),
-                    onPressed: () {}),
-              ),
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -51,6 +44,8 @@ class MemberView extends StatelessWidget {
                         ),
                       ],
                     ),
+                    trailing: member.position == '팀장' ? IconButton(icon: Icon(Icons.account_circle),
+                    onPressed: () {}) : IconButton(icon: Icon(Icons. account_circle_outlined), onPressed: () {},),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -64,7 +59,8 @@ class MemberView extends StatelessWidget {
                       //Navigator.push()
                     },
                   ),
-                Divider()],
+                  Divider()
+                ],
               );
             },
           ),

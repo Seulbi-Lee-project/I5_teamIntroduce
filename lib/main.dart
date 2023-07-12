@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'member_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'member_service.dart';
+import 'team_service.dart';
+import 'team_blog_service.dart';
 
 late SharedPreferences prefs;
 void main() async {
@@ -14,6 +16,9 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => MemberService()),
         ChangeNotifierProvider(create: (context) => TeamStrengthService()),
+        ChangeNotifierProvider(create: (context) => TeamService()),
+        ChangeNotifierProvider(
+            create: (context) => TeamBlogService()), // 팀블로그 멀티프로바이더 추가
       ],
       child: const MyApp(),
     ),
@@ -27,6 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

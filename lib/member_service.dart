@@ -7,6 +7,7 @@ class Member {
     required this.merit,
     required this.style,
     required this.blog,
+    required this.position,
   });
 
   String name;
@@ -14,6 +15,7 @@ class Member {
   String merit;
   String style;
   String blog;
+  String position;
 
   Map toJson() {
     return {
@@ -28,6 +30,7 @@ class Member {
       merit: json['merit'],
       style: json['style'],
       blog: json['blog'],
+      position: json['position'],
     );
   }
 }
@@ -35,39 +38,44 @@ class Member {
 class MemberService extends ChangeNotifier {
   List<Member> memberList = [
     Member(
-      name: '멤버1',
-      mbti: '',
-      merit: '',
-      style: '',
+      name: '배근태',
+      mbti: 'ISTP',
+      merit: '끈기 있습니다',
+      style: '내가 할 일은 책임감 있게 합니다',
+      blog: 'https://velog.io/@kt2790',
+      position: '팀장',
+    ), // 더미(dummy) 데이터
+    Member(
+      name: '이슬비',
+      mbti: 'ISTJ',
+      merit: '실수가 적다',
+      style: '숨은 강자',
+      blog: 'https://velog.io/@ifssfws',
+      position: '팀원'
+    ), // 더미(dummy) 데이터
+    Member(
+      name: '이승훈',
+      mbti: 'INFJ',
+      merit: '포기하지 않고 열심히 합니다',
+      style: '민폐 안끼치고 할 일 하겠습니다',
+      blog: 'https://hara9052.tistory.com/',
+        position: '팀원'
+    ), // 더미(dummy) 데이터
+    Member(
+      name: '소준선',
+      mbti: 'ISTP',
+      merit: '평화주의자',
+      style: '열심히 잘 따라갑니다',
+      blog: 'https://junseon98.tistory.com/',
+        position: '팀원'
+    ), // 더미(dummy) 데이터
+    Member(
+      name: '이동희',
+      mbti: 'ISTJ',
+      merit: '계획적이다',
+      style: '열심히 따라함',
       blog: 'https://velog.io/@ldh7054',
-    ), // 더미(dummy) 데이터
-    Member(
-      name: '멤버2',
-      mbti: '',
-      merit: '',
-      style: '',
-      blog: '',
-    ), // 더미(dummy) 데이터
-    Member(
-      name: '멤버3',
-      mbti: '',
-      merit: '',
-      style: '',
-      blog: '',
-    ), // 더미(dummy) 데이터
-    Member(
-      name: '멤버4',
-      mbti: '',
-      merit: '',
-      style: '',
-      blog: '',
-    ), // 더미(dummy) 데이터
-    Member(
-      name: '멤버5',
-      mbti: '',
-      merit: '',
-      style: '',
-      blog: '',
+        position: '팀원'
     ), // 더미(dummy) 데이터
   ];
 
@@ -77,6 +85,7 @@ class MemberService extends ChangeNotifier {
     required String style,
     required String merit,
     required String blog,
+    required String position,
   }) {
     Member member = Member(
       name: name,
@@ -84,9 +93,14 @@ class MemberService extends ChangeNotifier {
       style: style,
       merit: merit,
       blog: blog,
+      position: position
     );
-    memberList.insert(
-        0, member); // Consumer<MemberService>의 builder 부분을 호출해서 화면 새로고침
+    if (position == '팀장') {
+      memberList.insert(0, member);
+    }
+    else {
+      memberList.add(member);
+    }
     notifyListeners();
   }
 
@@ -97,6 +111,7 @@ class MemberService extends ChangeNotifier {
     required String style,
     required String merit,
     required String blog,
+    required String position,
   }) {
     Member member = memberList[index];
     member.name = name;
@@ -104,6 +119,19 @@ class MemberService extends ChangeNotifier {
     member.merit = merit;
     member.style = style;
     member.blog = blog;
+    member.position = position;
+
+    if (member.position == '팀장') {
+      Member tmp = memberList[index];
+      memberList.removeAt(index);
+      memberList.insert(0, tmp);
+    }
+    else {
+      Member tmp = memberList[index];
+      memberList.removeAt(index);
+      memberList.add(tmp);
+    }
+
     notifyListeners();
   }
 

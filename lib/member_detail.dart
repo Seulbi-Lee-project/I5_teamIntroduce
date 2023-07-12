@@ -13,6 +13,7 @@ class ConcretePage extends StatefulWidget {
   String _merit = '';
   String _style = '';
   String _blog = '';
+  String _position = '팀원';
   @override
   State<ConcretePage> createState() => _ConcretePageState();
 }
@@ -23,6 +24,7 @@ class _ConcretePageState extends State<ConcretePage> {
   TextEditingController meritController = TextEditingController();
   TextEditingController styleController = TextEditingController();
   TextEditingController blogController = TextEditingController();
+  final _valueList = ['팀장', '팀원'];
 
   int count = 0;
 
@@ -43,6 +45,7 @@ class _ConcretePageState extends State<ConcretePage> {
       widget._merit = member.merit;
       widget._style = member.style;
       widget._blog = member.blog;
+      widget._position = member.position;
     }
     return Scaffold(
       appBar: AppBar(
@@ -168,7 +171,7 @@ class _ConcretePageState extends State<ConcretePage> {
             Center(
               child: Container(
                 width: 300,
-                height: 160,
+                height: 120,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                   border: Border.all(color: Colors.lightBlue),
@@ -224,10 +227,52 @@ class _ConcretePageState extends State<ConcretePage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 20,
+            ),
+            Text("          직책", style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height: 5),
+            Row(
+              children: [
+                SizedBox(width: 30),
+                Container(
+                  width: 80,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: Colors.lightBlue),
+                  ),
+                  child: Center(
+                    child: DropdownButton(
+                        elevation: 16,
+                        underline: Container(
+                          height: 1,
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(30),
+                        value: widget._position,
+                        items: _valueList.map(
+                          (value) {
+                            return DropdownMenuItem(
+                              value: value,
+                              child: Text(value),
+                            );
+                          },
+                        ).toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            widget._position = value!;
+                            count = count + 1;
+                          });
+                        }),
+                  ),
+                ),
+              ],
+            ),
             Center(
               child: SizedBox(
-                height: 100,
-                width: 100,
+                height: 50,
+                width: 50,
                 child: widget.mode
                     ? IconButton(
                         onPressed: () {
@@ -242,11 +287,12 @@ class _ConcretePageState extends State<ConcretePage> {
                               merit: widget._merit,
                               style: widget._style,
                               blog: widget._blog,
+                              position: widget._position,
                             );
+                            Navigator.pop(context);
                           } else {
                             showWarnDialog(context);
                           }
-                          Navigator.pop(context);
                         },
                         icon: Icon(Icons.save))
                     : IconButton(
@@ -263,6 +309,7 @@ class _ConcretePageState extends State<ConcretePage> {
                               merit: widget._merit,
                               style: widget._style,
                               blog: widget._blog,
+                              position: widget._position,
                             );
                             Navigator.pop(context);
                           } else {
