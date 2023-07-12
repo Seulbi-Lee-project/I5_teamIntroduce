@@ -6,6 +6,7 @@ class StrengthComment {
   StrengthComment({
     required this.commentIndex,
     required this.comment,
+    required this.password,
   });
 
   int commentIndex;
@@ -13,14 +14,18 @@ class StrengthComment {
   String comment;
 
   Map toJson() {
-    return {'commentIndex': commentIndex, 'comment': comment};
+    return {
+      'commentIndex': commentIndex,
+      'comment': comment,
+      'password': password
+    };
   }
 
   factory StrengthComment.fromJson(json) {
     return StrengthComment(
-      commentIndex: json['name'],
-      comment: json['comment'],
-    );
+        commentIndex: json['commentIndex'],
+        comment: json['comment'],
+        password: json['password']);
   }
 }
 
@@ -28,15 +33,15 @@ class TeamStrengthService extends ChangeNotifier {
   TeamStrengthService() {
     loadStrengthCommentList();
   }
-  List<StrengthComment> strengthCommentList = [
-    StrengthComment(commentIndex: 0, comment: "coment")
-  ];
+  List<StrengthComment> strengthCommentList = [];
 
   createStrengthComment({
     required String comment,
   }) {
     StrengthComment stengthComment = StrengthComment(
-        commentIndex: strengthCommentList.length, comment: comment);
+        commentIndex: strengthCommentList.length,
+        comment: comment,
+        password: 0000);
     strengthCommentList.add(stengthComment);
     notifyListeners();
     saveStrengthCommentList();
@@ -45,7 +50,6 @@ class TeamStrengthService extends ChangeNotifier {
   updateStrengthComment({required index, required comment}) {
     StrengthComment updateComent = strengthCommentList[index];
     updateComent.comment = comment;
-    print(comment);
     if (comment.isNull) deleteStrengthComment(index: index);
     notifyListeners();
     saveStrengthCommentList();
@@ -67,7 +71,6 @@ class TeamStrengthService extends ChangeNotifier {
     if (jsonString == null) return; // null 이면 로드하지 않음
 
     List strengthCommentJsonList = jsonDecode(jsonString);
-    // [{"content": "1"}, {"content": "2"}]
 
     strengthCommentList = strengthCommentJsonList
         .map((json) => StrengthComment.fromJson(json))
