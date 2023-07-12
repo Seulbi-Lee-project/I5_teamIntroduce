@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'member_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'member_service.dart';
+import 'team_service.dart';
 
 late SharedPreferences prefs;
 void main() async {
@@ -12,6 +13,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MemberService()),
+        ChangeNotifierProvider(create: (context) => TeamService()),
       ],
       child: const MyApp(),
     ),
