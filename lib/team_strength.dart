@@ -17,7 +17,7 @@ class _TeamStrengthState extends State<TeamStrength> {
     final myController = TextEditingController();
     MemberService memberService = context.read<MemberService>();
     return Consumer<TeamStrengthService>(
-        builder: (context, teamStrengthService, index) {
+        builder: (context, teamStrengthService, child) {
       List<StrengthComment> strengthCommentList =
           teamStrengthService.strengthCommentList;
       return Scaffold(
