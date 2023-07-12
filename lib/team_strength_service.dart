@@ -84,4 +84,9 @@ class TeamStrengthService extends ChangeNotifier {
     strengthComment.password = password;
     notifyListeners();
   }
+
+  passwordCheck({required int index, required int password}) {
+    StrengthComment passwordcheck = strengthCommentList[index];
+    if (passwordcheck.password == password) return true;
+  }
 }

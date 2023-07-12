@@ -20,6 +20,7 @@ class _TeamStrengthState extends State<TeamStrength> {
         builder: (context, teamStrengthService, index) {
       List<StrengthComment> strengthCommentList =
           teamStrengthService.strengthCommentList;
+      bool passwordBool = false;
       return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
@@ -56,37 +57,85 @@ class _TeamStrengthState extends State<TeamStrength> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text("수정하시겠습니까?"),
+                                        title: Text("비밀번호확인"),
                                         content: TextField(
-                                          decoration: InputDecoration(
-                                              label: Text(teamStrengthService
-                                                  .strengthCommentList[index]
-                                                  .comment)),
-                                          onChanged: (value) {
-                                            teamStrengthService
-                                                .updateStrengthComment(
+                                          maxLength: 4,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter.allow(
+                                                RegExp(r'[0-9]'))
+                                          ],
+                                          onSubmitted: (value) {
+                                            int passwordCheck =
+                                                int.parse(value);
+                                            passwordBool = teamStrengthService
+                                                .passwordCheck(
                                                     index: index,
-                                                    comment: value);
+                                                    password: passwordCheck);
                                           },
                                         ),
                                         actions: <Widget>[
                                           FloatingActionButton(
                                             onPressed: () {
                                               Navigator.of(context).pop();
+                                              passwordBool
+                                                  ? showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return AlertDialog(
+                                                          title:
+                                                              Text("수정하시겠습니까?"),
+                                                          content: TextField(
+                                                            decoration: InputDecoration(
+                                                                label: Text(teamStrengthService
+                                                                    .strengthCommentList[
+                                                                        index]
+                                                                    .comment)),
+                                                            onSubmitted:
+                                                                (value) {
+                                                              teamStrengthService
+                                                                  .updateStrengthComment(
+                                                                      index:
+                                                                          index,
+                                                                      comment:
+                                                                          value);
+                                                            },
+                                                          ),
+                                                          actions: <Widget>[
+                                                            FloatingActionButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                              child: Text("ok"),
+                                                            ),
+                                                            FloatingActionButton(
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                teamStrengthService
+                                                                    .deleteStrengthComment(
+                                                                        index: strengthCommentList.length -
+                                                                            1);
+                                                              },
+                                                              child: Text(
+                                                                  "cancle"),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    )
+                                                  : Navigator.of(context).pop();
                                             },
-                                            child: Text("ok"),
+                                            child: Text("0k"),
                                           ),
                                           FloatingActionButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              teamStrengthService
-                                                  .deleteStrengthComment(
-                                                      index: strengthCommentList
-                                                              .length -
-                                                          1);
-                                            },
+                                            onPressed: () {},
                                             child: Text("cancle"),
-                                          ),
+                                          )
                                         ],
                                       );
                                     },
