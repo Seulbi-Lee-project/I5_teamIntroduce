@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'member_service.dart';
 import 'team_strength_service.dart';
@@ -72,6 +74,40 @@ class _TeamStrengthState extends State<TeamStrength> {
                           onSubmitted: (value) {
                             teamStrengthService.createStrengthComment(
                                 comment: value);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("비밀번호를 설정하시겠습니까?"),
+                                  content: TextField(
+                                    maxLength: 4,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'[0-9]'))
+                                    ],
+                                    onSubmitted: (value) {
+                                      print(value);
+                                      //리스트에 비밀번호 입력
+                                    },
+                                  ),
+                                  actions: <Widget>[
+                                    FloatingActionButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("ok"),
+                                    ),
+                                    FloatingActionButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("cancle"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
                             myController.clear();
                           },
                         ),
