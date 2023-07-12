@@ -1,3 +1,4 @@
+import 'package:assignment11/team_strength_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'member_home.dart';
@@ -12,6 +13,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => MemberService()),
+        ChangeNotifierProvider(create: (context) => TeamStrengthService()),
       ],
       child: const MyApp(),
     ),
