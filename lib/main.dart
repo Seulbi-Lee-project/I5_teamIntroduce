@@ -4,6 +4,7 @@ import 'member_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'member_service.dart';
 import 'team_service.dart';
+import 'team_blog_service.dart';
 
 late SharedPreferences prefs;
 void main() async {
@@ -14,6 +15,8 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => MemberService()),
         ChangeNotifierProvider(create: (context) => TeamService()),
+        ChangeNotifierProvider(
+            create: (context) => TeamBlogService()), // 팀블로그 멀티프로바이더 추가
       ],
       child: const MyApp(),
     ),
