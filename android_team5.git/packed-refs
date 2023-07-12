@@ -1,0 +1,23 @@
+# pack-refs with: peeled fully-peeled sorted 
+e24c089d7ba9532a97b14311f2c751ed4e869396 refs/heads/feature/blog
+8ae9dfff040443d9b7c3215be64f11666b8dcdf9 refs/heads/feature/detail
+7afc5105c93e612eb4163630a1fdeef135e2b050 refs/heads/feature/intro
+995f33ef85202ec5c8cf75f85ed4ed9bee188e55 refs/heads/feature/mbti
+1535384acabae33019ae244e9e6831d1fe4abe06 refs/heads/feature/strength_comment
+a4cf68b4a8e912d3c900302b9e341f1997b4f879 refs/heads/feature/team_strength
+0728e80489598ebeb92064c9668fa78f037da62c refs/heads/master
+fc52fc058136db183ac2f2961da9b639e038500c refs/pull/1/head
+67c4d3dee9924eb0be3bb1c4e87ca7621b8d36e1 refs/pull/10/head
+9c168ed3c2a923f554a1fe6cd7e90b0ad0ee74c4 refs/pull/11/head
+07288090e207fb5089f1b2c53183e8cbaf1d4deb refs/pull/12/head
+85e6b43885669a1ded41bcd6273e07221309b6aa refs/pull/15/head
+06e3bc67c124bb739bcb031aa7e9a041c3f2d2f1 refs/pull/16/head
+f2fb3f178c8bf8bb966ad087bc3d48fe0c7ee799 refs/pull/17/head
+8ae9dfff040443d9b7c3215be64f11666b8dcdf9 refs/pull/18/head
+7afc5105c93e612eb4163630a1fdeef135e2b050 refs/pull/19/head
+97f32774b2cf2d6dceca8831f39b288da5beb420 refs/pull/2/head
+995f33ef85202ec5c8cf75f85ed4ed9bee188e55 refs/pull/20/head
+e24c089d7ba9532a97b14311f2c751ed4e869396 refs/pull/21/head
+a4cf68b4a8e912d3c900302b9e341f1997b4f879 refs/pull/7/head
+1726fa643273344847ec4a13ec8d9825452fbae3 refs/pull/8/head
+b98afb76b3109f2501c80dce316c982f91665b7e refs/pull/9/head
