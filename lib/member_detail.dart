@@ -62,71 +62,74 @@ class _ConcretePageState extends State<ConcretePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              children: [SizedBox(width: 30,),
-                Column(crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text("    이름",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text("    이름", style: TextStyle(fontWeight: FontWeight.bold)),
                   SizedBox(height: 5),
                   Container(
-                      width: 140,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.lightBlue),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: TextField(
-                          controller: nameController,
-                          decoration: InputDecoration(
-                            hintText: "이름",
-                            border: InputBorder.none,
-                          ),
-                          autofocus: true,
-                          maxLines: null,
-                          expands: true,
-                          keyboardType: TextInputType.multiline,
-                          onChanged: (value) {
-                            widget._name = value; // 텍스트필드 안의 값이 변할 때
-                          },
+                    width: 140,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: Colors.lightBlue),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: TextField(
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          hintText: "이름",
+                          border: InputBorder.none,
                         ),
+                        autofocus: true,
+                        maxLines: null,
+                        expands: true,
+                        keyboardType: TextInputType.multiline,
+                        onChanged: (value) {
+                          widget._name = value; // 텍스트필드 안의 값이 변할 때
+                        },
                       ),
                     ),
-                  ]),
-                SizedBox(width : 20,),
-                Column(crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [Text("    MBTI",
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                      SizedBox(height: 5),
-                      Container(
-                        width: 140,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: Colors.lightBlue),
+                  ),
+                ]),
+                SizedBox(
+                  width: 20,
+                ),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text("    MBTI",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  SizedBox(height: 5),
+                  Container(
+                    width: 140,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: Colors.lightBlue),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: TextField(
+                        controller: mbtiController,
+                        decoration: InputDecoration(
+                          hintText: "MBTI",
+                          border: InputBorder.none,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: TextField(
-                            controller: mbtiController,
-                            decoration: InputDecoration(
-                              hintText: "MBTI",
-                              border: InputBorder.none,
-                            ),
-                            autofocus: true,
-                            maxLines: null,
-                            expands: true,
-                            keyboardType: TextInputType.multiline,
-                            onChanged: (value) {
-                              widget._mbti = value; // 텍스트필드 안의 값이 변할 때
-                            },
-                          ),
-                        ),
+                        autofocus: true,
+                        maxLines: null,
+                        expands: true,
+                        keyboardType: TextInputType.multiline,
+                        onChanged: (value) {
+                          widget._mbti = value; // 텍스트필드 안의 값이 변할 때
+                        },
                       ),
-                    ]),
+                    ),
+                  ),
+                ]),
               ],
             ),
-
             SizedBox(height: 20),
             Text("          나의 장점",
                 style: TextStyle(fontWeight: FontWeight.bold)),
@@ -228,20 +231,19 @@ class _ConcretePageState extends State<ConcretePage> {
                 child: widget.mode
                     ? IconButton(
                         onPressed: () {
-
-                          if (widget._name.isNotEmpty
-                              && widget._mbti.isNotEmpty
-                              && widget._merit.isNotEmpty
-                              && widget._style.isNotEmpty
-                              && widget._blog.isNotEmpty) {
+                          if (widget._name.isNotEmpty &&
+                              widget._mbti.isNotEmpty &&
+                              widget._merit.isNotEmpty &&
+                              widget._style.isNotEmpty &&
+                              widget._blog.isNotEmpty) {
                             memberService.createMember(
-                                name: widget._name,
-                                mbti: widget._mbti,
-                                merit: widget._merit,
-                                style: widget._style,
-                                blog: widget._blog,);
-                          }
-                          else {
+                              name: widget._name,
+                              mbti: widget._mbti,
+                              merit: widget._merit,
+                              style: widget._style,
+                              blog: widget._blog,
+                            );
+                          } else {
                             showWarnDialog(context);
                           }
                           Navigator.pop(context);
@@ -249,21 +251,21 @@ class _ConcretePageState extends State<ConcretePage> {
                         icon: Icon(Icons.save))
                     : IconButton(
                         onPressed: () {
-                          if (widget._name.isNotEmpty
-                              && widget._mbti.isNotEmpty
-                              && widget._merit.isNotEmpty
-                              && widget._style.isNotEmpty
-                              && widget._blog.isNotEmpty) {
+                          if (widget._name.isNotEmpty &&
+                              widget._mbti.isNotEmpty &&
+                              widget._merit.isNotEmpty &&
+                              widget._style.isNotEmpty &&
+                              widget._blog.isNotEmpty) {
                             memberService.updateMember(
                               index: widget.index,
                               name: widget._name,
                               mbti: widget._mbti,
                               merit: widget._merit,
                               style: widget._style,
-                              blog: widget._blog,);
-                              Navigator.pop(context);
-                          }
-                          else {
+                              blog: widget._blog,
+                            );
+                            Navigator.pop(context);
+                          } else {
                             showWarnDialog(context);
                           }
                         },
@@ -271,7 +273,6 @@ class _ConcretePageState extends State<ConcretePage> {
                       ),
               ),
             ),
-
           ],
         ),
       ),

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -51,6 +50,49 @@ class _TeamStrengthState extends State<TeamStrength> {
                           StrengthComment strengthComment =
                               strengthCommentList[index];
                           return ListTile(
+                            leading: IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text("수정하시겠습니까?"),
+                                        content: TextField(
+                                          decoration: InputDecoration(
+                                              label: Text(teamStrengthService
+                                                  .strengthCommentList[index]
+                                                  .comment)),
+                                          onChanged: (value) {
+                                            teamStrengthService
+                                                .updateStrengthComment(
+                                                    index: index,
+                                                    comment: value);
+                                          },
+                                        ),
+                                        actions: <Widget>[
+                                          FloatingActionButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text("ok"),
+                                          ),
+                                          FloatingActionButton(
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              teamStrengthService
+                                                  .deleteStrengthComment(
+                                                      index: strengthCommentList
+                                                              .length -
+                                                          1);
+                                            },
+                                            child: Text("cancle"),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                icon: Icon(Icons.update)),
                             title: Text(strengthComment.comment),
                             trailing: IconButton(
                                 onPressed: () {
@@ -87,8 +129,13 @@ class _TeamStrengthState extends State<TeamStrength> {
                                           RegExp(r'[0-9]'))
                                     ],
                                     onSubmitted: (value) {
-                                      print(value);
-                                      //리스트에 비밀번호 입력
+                                      int password = int.parse(value);
+                                      teamStrengthService
+                                          .updateStrengthPassword(
+                                              password: password,
+                                              index:
+                                                  strengthCommentList.length -
+                                                      1);
                                     },
                                   ),
                                   actions: <Widget>[
@@ -101,6 +148,11 @@ class _TeamStrengthState extends State<TeamStrength> {
                                     FloatingActionButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
+                                        teamStrengthService
+                                            .deleteStrengthComment(
+                                                index:
+                                                    strengthCommentList.length -
+                                                        1);
                                       },
                                       child: Text("cancle"),
                                     ),

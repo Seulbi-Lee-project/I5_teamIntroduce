@@ -1,18 +1,15 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'main.dart';
 
 class StrengthComment {
   StrengthComment({
     required this.commentIndex,
-    //required this.password,
     required this.comment,
   });
 
   int commentIndex;
-  //int password;
+  int? password;
   String comment;
 
   Map toJson() {
@@ -36,7 +33,6 @@ class TeamStrengthService extends ChangeNotifier {
   ];
 
   createStrengthComment({
-    //required int password,
     required String comment,
   }) {
     StrengthComment stengthComment = StrengthComment(
@@ -46,7 +42,14 @@ class TeamStrengthService extends ChangeNotifier {
     saveStrengthCommentList();
   }
 
-  updateStrengthComment() {}
+  updateStrengthComment({required index, required comment}) {
+    StrengthComment updateComent = strengthCommentList[index];
+    updateComent.comment = comment;
+    print(comment);
+    if (comment.isNull) deleteStrengthComment(index: index);
+    notifyListeners();
+    saveStrengthCommentList();
+  }
 
   saveStrengthCommentList() {
     List stengthCommentJsonList = strengthCommentList
@@ -73,6 +76,12 @@ class TeamStrengthService extends ChangeNotifier {
 
   deleteStrengthComment({required int index}) {
     strengthCommentList.removeAt(index);
+    notifyListeners();
+  }
+
+  updateStrengthPassword({required int password, required int index}) {
+    StrengthComment strengthComment = strengthCommentList[index];
+    strengthComment.password = password;
     notifyListeners();
   }
 }
