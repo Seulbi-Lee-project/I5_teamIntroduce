@@ -26,15 +26,8 @@ class MbtiMain extends StatefulWidget {
 }
 
 class _MbtiMainState extends State<MbtiMain> {
-  var ImageList = [
-    "image/ISTP.png",
-    "image/ISTJ.png",
-    "image/INFJ.png",
-    "image/ISTP.png",
-    "image/ISTJ.png"
-  ];
-
   bool _customTileExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     Map<String, dynamic> mbtiList = {
@@ -76,53 +69,72 @@ class _MbtiMainState extends State<MbtiMain> {
 
     return Consumer<MemberService>(builder: (context, memberService, child) {
       List<Member> memberList = memberService.memberList;
+
       return ListView.builder(
         itemCount: memberList.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: ExpansionTile(
-              trailing: Icon(
-                _customTileExpanded
-                    ? Icons.arrow_drop_down_circle
-                    : Icons.arrow_drop_down,
+          return Container(
+            margin: EdgeInsets.only(top: 5, bottom: 5),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.all(
+                Radius.circular(20),
               ),
-              children: <Widget>[
-                ListTile(
-                    title:
-                        Text("mbti 특징: ${mbtiList[memberList[index].mbti]}")),
-              ],
-              onExpansionChanged: (bool expanded) {
-                setState(() {
-                  _customTileExpanded = expanded;
-                });
-              },
-              title: Row(
-                children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    child: Image.asset(mbtiImgList[memberList[index].mbti]),
-                  ),
-                  SizedBox(
-                    width: 15,
+            ),
+            child: Card(
+              child: ExpansionTile(
+                shape: Border.all(color: Colors.transparent),
+                trailing: Icon(
+                  _customTileExpanded
+                      ? Icons.arrow_drop_up_rounded
+                      : Icons.arrow_drop_down,
+                ),
+                children: <Widget>[
+                  ListTile(
+                    title: Center(child: Text("mbti 특징")),
+                    titleTextStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(children: <Widget>[
-                      Text(
-                        memberList[index].name,
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ]),
-                  )
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    child: Text("<${mbtiList[memberList[index].mbti]}>"),
+                  ),
                 ],
+                onExpansionChanged: (bool expanded) {
+                  setState(() {
+                    _customTileExpanded = expanded;
+                  });
+                },
+                title: Row(
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      child: Image.asset(mbtiImgList[memberList[index].mbti]),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(children: <Widget>[
+                        Text(
+                          memberList[index].name,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
