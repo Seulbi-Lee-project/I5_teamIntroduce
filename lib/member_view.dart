@@ -59,7 +59,8 @@ class MemberView extends StatelessWidget {
                       //Navigator.push()
                     },
                   ),
-                Divider()],
+                  Divider()
+                ],
               );
             },
           ),
