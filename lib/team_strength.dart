@@ -14,11 +14,11 @@ class _TeamStrengthState extends State<TeamStrength> {
   @override
   Widget build(BuildContext context) {
     final myController = TextEditingController();
-    List<Member> memberList = MemberService().memberList;
-    List<StrengthComment> strengthCommentList =
-        TeamStrengthService().strengthCommentList;
+    MemberService memberService = context.read<MemberService>();
     return Consumer<TeamStrengthService>(
-        builder: (context, TeamStrengthService, index) {
+        builder: (context, teamStrengthService, index) {
+      List<StrengthComment> strengthCommentList =
+          teamStrengthService.strengthCommentList;
       return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
@@ -28,9 +28,9 @@ class _TeamStrengthState extends State<TeamStrength> {
             children: [
               Expanded(
                   child: ListView.builder(
-                      itemCount: memberList.length,
+                      itemCount: memberService.memberList.length,
                       itemBuilder: (context, index) {
-                        Member member = memberList[index];
+                        Member member = memberService.memberList[index];
                         return ListTile(
                           title: Text(member.name),
                           subtitle: Text(member.merit.isEmpty
@@ -40,11 +40,11 @@ class _TeamStrengthState extends State<TeamStrength> {
                       })),
               Text("댓글란"),
               Expanded(
-                child: TeamStrengthService.strengthCommentList.isEmpty
+                child: teamStrengthService.strengthCommentList.isEmpty
                     ? Center(child: Text("댓글이 없습니다."))
                     : ListView.builder(
                         itemCount:
-                            TeamStrengthService.strengthCommentList.length,
+                            teamStrengthService.strengthCommentList.length,
                         itemBuilder: (context, index) {
                           StrengthComment strengthComment =
                               strengthCommentList[index];
@@ -52,7 +52,7 @@ class _TeamStrengthState extends State<TeamStrength> {
                             title: Text(strengthComment.comment),
                             trailing: IconButton(
                                 onPressed: () {
-                                  TeamStrengthService.deleteStrengthComment(
+                                  teamStrengthService.deleteStrengthComment(
                                       index: index);
                                 },
                                 icon: Icon(Icons.delete)),
@@ -70,7 +70,7 @@ class _TeamStrengthState extends State<TeamStrength> {
                           controller: myController,
                           decoration: InputDecoration(hintText: "댓글을 입력하세요."),
                           onSubmitted: (value) {
-                            TeamStrengthService.createStrengthComment(
+                            teamStrengthService.createStrengthComment(
                                 comment: value);
                             myController.clear();
                           },
