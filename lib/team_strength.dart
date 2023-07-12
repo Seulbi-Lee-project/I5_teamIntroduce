@@ -52,119 +52,23 @@ class _TeamStrengthState extends State<TeamStrength> {
                           return ListTile(
                             leading: IconButton(
                                 onPressed: () {
-                                  bool passwordBool = false;
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text("비밀번호확인"),
-                                        content: TextField(
-                                          maxLength: 4,
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter.allow(
-                                                RegExp(r'[0-9]'))
-                                          ],
-                                          onSubmitted: (value) {
-                                            int passwordCheck =
-                                                int.parse(value);
-                                            passwordBool = teamStrengthService
-                                                .passwordCheck(
-                                                    index: index,
-                                                    password: passwordCheck);
-                                          },
-                                        ),
-                                        actions: <Widget>[
-                                          FloatingActionButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              passwordBool
-                                                  ? showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return AlertDialog(
-                                                          title:
-                                                              Text("수정하시겠습니까?"),
-                                                          content: TextField(
-                                                            decoration: InputDecoration(
-                                                                label: Text(teamStrengthService
-                                                                    .strengthCommentList[
-                                                                        index]
-                                                                    .comment)),
-                                                            onSubmitted:
-                                                                (value) {
-                                                              teamStrengthService
-                                                                  .updateStrengthComment(
-                                                                      index:
-                                                                          index,
-                                                                      comment:
-                                                                          value);
-                                                            },
-                                                          ),
-                                                          actions: <Widget>[
-                                                            FloatingActionButton(
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                              child: Text("ok"),
-                                                            ),
-                                                            FloatingActionButton(
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                                teamStrengthService
-                                                                    .deleteStrengthComment(
-                                                                        index: strengthCommentList.length -
-                                                                            1);
-                                                              },
-                                                              child: Text(
-                                                                  "cancle"),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    )
-                                                  : showDialog(
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return AlertDialog(
-                                                          title: Text(
-                                                              "비밀번호가 틀렸습니다."),
-                                                          actions: <Widget>[
-                                                            FloatingActionButton(
-                                                              onPressed: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop();
-                                                              },
-                                                              child: Text("확인"),
-                                                            )
-                                                          ],
-                                                        );
-                                                      });
-                                            },
-                                            child: Text("0k"),
-                                          ),
-                                          FloatingActionButton(
-                                            onPressed: () {},
-                                            child: Text("cancle"),
-                                          )
-                                        ],
-                                      );
-                                    },
-                                  );
+                                  passwordCheckDialog(
+                                      context,
+                                      teamStrengthService,
+                                      index,
+                                      strengthCommentList,
+                                      false);
                                 },
                                 icon: Icon(Icons.update)),
                             title: Text(strengthComment.comment),
                             trailing: IconButton(
                                 onPressed: () {
-                                  teamStrengthService.deleteStrengthComment(
-                                      index: index);
+                                  passwordCheckDialog(
+                                      context,
+                                      teamStrengthService,
+                                      index,
+                                      strengthCommentList,
+                                      true);
                                 },
                                 icon: Icon(Icons.delete)),
                           );
@@ -240,5 +144,111 @@ class _TeamStrengthState extends State<TeamStrength> {
         )),
       );
     });
+  }
+
+  void passwordCheckDialog(
+      BuildContext context,
+      TeamStrengthService teamStrengthService,
+      int index,
+      List<StrengthComment> strengthCommentList,
+      bool check) {
+    bool passwordBool = false;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("비밀번호확인"),
+          content: TextField(
+            maxLength: 4,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+            ],
+            onSubmitted: (value) {
+              int passwordCheck = int.parse(value);
+              passwordBool = teamStrengthService.passwordCheck(
+                  index: index, password: passwordCheck);
+            },
+          ),
+          actions: <Widget>[
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                passwordBool
+                    ? showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          if (check) {
+                            return AlertDialog(
+                              title: Text("삭제하시겠습니까?"),
+                              actions: <Widget>[
+                                FloatingActionButton(
+                                  child: Text("확인"),
+                                  onPressed: () {
+                                    teamStrengthService.deleteStrengthComment(
+                                        index: index);
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          } else {
+                            return AlertDialog(
+                              title: Text("수정하시겠습니까?"),
+                              content: TextField(
+                                decoration: InputDecoration(
+                                    label: Text(teamStrengthService
+                                        .strengthCommentList[index].comment)),
+                                onSubmitted: (value) {
+                                  teamStrengthService.updateStrengthComment(
+                                      index: index, comment: value);
+                                },
+                              ),
+                              actions: <Widget>[
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text("ok"),
+                                ),
+                                FloatingActionButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    teamStrengthService.deleteStrengthComment(
+                                        index: strengthCommentList.length - 1);
+                                  },
+                                  child: Text("cancle"),
+                                ),
+                              ],
+                            );
+                          }
+                        },
+                      )
+                    : showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("비밀번호가 틀렸습니다."),
+                            actions: <Widget>[
+                              FloatingActionButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text("확인"),
+                              )
+                            ],
+                          );
+                        });
+              },
+              child: Text("0k"),
+            ),
+            FloatingActionButton(
+              onPressed: () {},
+              child: Text("cancle"),
+            )
+          ],
+        );
+      },
+    );
   }
 }
